@@ -1,5 +1,7 @@
 # Project Overview
 
+Live demo: https://zackferrofields.github.io/juxt-weather-widget/
+
 ## Setup Instructions
 
 To get started with the project, follow these steps:

@@ -5,7 +5,8 @@ import App from "./App.tsx";
 import "./index.css";
 
 async function enableMocking() {
-	if (!import.meta.env.DEV) {
+	// The API only exists as mocks, so the hosted demo opts in at build time.
+	if (!import.meta.env.DEV && import.meta.env.VITE_ENABLE_MOCKS !== "true") {
 		return;
 	}
 
@@ -13,7 +14,10 @@ async function enableMocking() {
 
 	// `worker.start()` returns a Promise that resolves
 	// once the Service Worker is up and ready to intercept requests.
-	return worker.start();
+	// BASE_URL keeps the worker reachable when served from a subpath.
+	return worker.start({
+		serviceWorker: { url: `${import.meta.env.BASE_URL}mockServiceWorker.js` },
+	});
 }
 
 const queryClient = new QueryClient({
